@@ -1,6 +1,6 @@
 {
   "name": "@loganlxb/wecom-cli-linux-x64",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "The linux-x64 binary for @loganlxb/wecom-cli",
   "license": "MIT",
   "files": [

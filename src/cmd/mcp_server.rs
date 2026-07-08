@@ -8,6 +8,18 @@ use crate::{json_rpc, media, registry, service};
 
 const MCP_PROTOCOL_VERSION: &str = "2024-11-05";
 
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+enum MessageTransport {
+    ContentLength,
+    JsonLine,
+}
+
+#[derive(Debug)]
+struct IncomingMessage {
+    payload: Value,
+    transport: MessageTransport,
+}
+
 #[derive(Args, Debug)]
 pub struct McpServerArgs {
     /// 传输协议，目前仅支持 stdio
@@ -41,8 +53,8 @@ async fn run_stdio_server() -> Result<()> {
     let mut writer = BufWriter::new(stdout.lock());
 
     while let Some(message) = read_message(&mut reader)? {
-        if let Some(response) = handle_message(message).await {
-            write_message(&mut writer, &response)?;
+        if let Some(response) = handle_message(message.payload).await {
+            write_message(&mut writer, &response, message.transport)?;
         }
     }
 
@@ -248,7 +260,7 @@ fn decode_tool_name(name: &str) -> Option<(&str, &str)> {
     Some((category, method))
 }
 
-fn read_message<R: BufRead>(reader: &mut R) -> Result<Option<Value>> {
+fn read_message<R: BufRead>(reader: &mut R) -> Result<Option<IncomingMessage>> {
     let mut content_length: Option<usize> = None;
 
     loop {
@@ -265,7 +277,10 @@ fn read_message<R: BufRead>(reader: &mut R) -> Result<Option<Value>> {
         }
 
         if trimmed.starts_with('{') {
-            return Ok(Some(serde_json::from_str(trimmed)?));
+            return Ok(Some(IncomingMessage {
+                payload: serde_json::from_str(trimmed)?,
+                transport: MessageTransport::JsonLine,
+            }));
         }
 
         if let Some((name, value)) = trimmed.split_once(':') {
@@ -281,13 +296,28 @@ fn read_message<R: BufRead>(reader: &mut R) -> Result<Option<Value>> {
 
     let mut body = vec![0_u8; content_length];
     reader.read_exact(&mut body)?;
-    Ok(Some(serde_json::from_slice(&body)?))
+    Ok(Some(IncomingMessage {
+        payload: serde_json::from_slice(&body)?,
+        transport: MessageTransport::ContentLength,
+    }))
 }
 
-fn write_message<W: Write>(writer: &mut W, message: &Value) -> Result<()> {
+fn write_message<W: Write>(
+    writer: &mut W,
+    message: &Value,
+    transport: MessageTransport,
+) -> Result<()> {
     let body = serde_json::to_vec(message)?;
-    write!(writer, "Content-Length: {}\r\n\r\n", body.len())?;
-    writer.write_all(&body)?;
+    match transport {
+        MessageTransport::ContentLength => {
+            write!(writer, "Content-Length: {}\r\n\r\n", body.len())?;
+            writer.write_all(&body)?;
+        }
+        MessageTransport::JsonLine => {
+            writer.write_all(&body)?;
+            writer.write_all(b"\n")?;
+        }
+    }
     writer.flush()?;
     Ok(())
 }
@@ -359,7 +389,8 @@ mod tests {
     fn read_message_supports_json_line_mode() {
         let mut reader = BufReader::new(r#"{"jsonrpc":"2.0","method":"ping"}"#.as_bytes());
         let message = read_message(&mut reader).unwrap().unwrap();
-        assert_eq!(message["method"], "ping");
+        assert_eq!(message.payload["method"], "ping");
+        assert_eq!(message.transport, MessageTransport::JsonLine);
     }
 
     #[test]
@@ -368,6 +399,36 @@ mod tests {
         let raw = format!("Content-Length: {}\r\n\r\n{}", payload.len(), payload);
         let mut reader = BufReader::new(raw.as_bytes());
         let message = read_message(&mut reader).unwrap().unwrap();
-        assert_eq!(message["method"], "ping");
+        assert_eq!(message.payload["method"], "ping");
+        assert_eq!(message.transport, MessageTransport::ContentLength);
+    }
+
+    #[test]
+    fn write_message_supports_json_line_mode() {
+        let mut out = Vec::new();
+        write_message(
+            &mut out,
+            &json!({"jsonrpc":"2.0","id":1,"result":{}}),
+            MessageTransport::JsonLine,
+        )
+        .unwrap();
+
+        let text = String::from_utf8(out).unwrap();
+        assert!(text.ends_with('\n'));
+        assert!(!text.contains("Content-Length"));
+    }
+
+    #[test]
+    fn write_message_supports_content_length_mode() {
+        let mut out = Vec::new();
+        write_message(
+            &mut out,
+            &json!({"jsonrpc":"2.0","id":1,"result":{}}),
+            MessageTransport::ContentLength,
+        )
+        .unwrap();
+
+        let text = String::from_utf8(out).unwrap();
+        assert!(text.starts_with("Content-Length: "));
     }
 }

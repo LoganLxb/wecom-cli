@@ -33,6 +33,7 @@ wecom-cli mcp-server --transport stdio
 - 启动命令：`wecom-cli mcp-server --transport stdio`
 - 传输方式：`stdio`
 - 凭证来源：优先使用环境变量；本地调试可复用 `wecom-cli init` 生成的加密配置
+- 若宿主平台通过 `supergateway` 一类代理把子进程 stdio 当作 JSON line 转发，无需更改命令；`wecom-cli` 会自动根据输入格式切换输出格式
 
 ## 工具命名
 

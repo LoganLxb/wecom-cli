@@ -60,6 +60,10 @@ wecom-cli contact get_userlist '{}'
 ### 接入阿里百炼
 
 `wecom-cli` 现已支持通过 `stdio MCP server` 模式接入阿里百炼。
+它会自动兼容两类常见宿主：
+
+- 标准 MCP `Content-Length` framing
+- `supergateway` 一类使用 JSON line 读写子进程 stdout/stdin 的代理
 
 ```bash
 # 方式一：先做一次本地初始化

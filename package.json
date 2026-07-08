@@ -1,6 +1,6 @@
 {
   "name": "@loganlxb/wecom-cli",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "The official CLI for WeCom",
   "keywords": [
     "wecom-cli",
@@ -24,8 +24,8 @@
     "README.md"
   ],
   "optionalDependencies": {
-    "@loganlxb/wecom-cli-darwin-arm64": "0.1.9",
-    "@loganlxb/wecom-cli-linux-x64": "0.1.9"
+    "@loganlxb/wecom-cli-darwin-arm64": "0.1.10",
+    "@loganlxb/wecom-cli-linux-x64": "0.1.10"
   },
   "publishConfig": {
     "access": "public"

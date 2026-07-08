@@ -1,6 +1,6 @@
 [package]
 name = "wecom-cli"
-version = "0.1.9"
+version = "0.1.10"
 edition = "2024"
 description = "The official CLI for WeCom — 企业微信命令行工具，让人类和 AI Agent 都能在终端中操作企业微信"
 license = "MIT"
