@@ -1,4 +1,4 @@
-# @wecom/cli-linux-arm64
+# @loganlxb/wecom-cli-linux-arm64
 
 Platform-specific binary package for **Linux ARM64 (aarch64)**.
 
@@ -6,7 +6,7 @@ Platform-specific binary package for **Linux ARM64 (aarch64)**.
 
 This package contains the pre-built `wecom-cli` binary for Linux on ARM64 (aarch64) architecture.
 
-**You should not install this package directly.** It is automatically installed as an optional dependency of [`@wecom/cli`](https://www.npmjs.com/package/@wecom/cli) when running on a compatible platform.
+**You should not install this package directly.** It is automatically installed as an optional dependency of [`@loganlxb/wecom-cli`](https://www.npmjs.com/package/@loganlxb/wecom-cli) when running on a compatible platform.
 
 ## Supported Platform
 
@@ -19,7 +19,7 @@ This package contains the pre-built `wecom-cli` binary for Linux on ARM64 (aarch
 Install the main package instead:
 
 ```bash
-npm install -g @wecom/cli
+npm install -g @loganlxb/wecom-cli
 ```
 
 ## License

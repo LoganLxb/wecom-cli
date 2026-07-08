@@ -19,11 +19,16 @@ pub async fn get_mcp_url(category: &str) -> Result<String> {
         None => refresh_mcp_config().await?,
     };
 
-    if !list.iter().any(|item| item.biz_type.as_deref() == Some(category)) {
+    if !list
+        .iter()
+        .any(|item| item.biz_type.as_deref() == Some(category))
+    {
         list = refresh_mcp_config().await?;
     }
 
-    let target = list.iter().find(|item| item.biz_type.as_deref() == Some(category));
+    let target = list
+        .iter()
+        .find(|item| item.biz_type.as_deref() == Some(category));
 
     let Some(target) = target else {
         return Err(anyhow::anyhow!(

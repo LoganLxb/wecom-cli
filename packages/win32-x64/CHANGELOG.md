@@ -1,4 +1,4 @@
-# @wecom/cli-win32-x64
+# @loganlxb/wecom-cli-win32-x64
 
 ## 0.1.9
 

@@ -43,10 +43,10 @@
 
 ```bash
 # 安装 CLI
-npm install -g @wecom/cli
+npm install -g @loganlxb/wecom-cli
 
 # 安装 CLI Skill（必需）
-npx skills add WeComTeam/wecom-cli -y -g
+npx skills add LoganLxb/wecom-cli -y -g
 
 # 配置凭证（交互式，仅需一次）
 wecom-cli init

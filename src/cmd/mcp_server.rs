@@ -1,8 +1,8 @@
-use std::io::{BufRead, BufReader, BufWriter, Read, Write};
+use std::io::{BufRead, BufReader, BufWriter, Write};
 
 use anyhow::Result;
 use clap::{ArgMatches, Args, Command, FromArgMatches};
-use serde_json::{Map, Value, json};
+use serde_json::{Value, json};
 
 use crate::{json_rpc, media, registry, service};
 
@@ -135,7 +135,10 @@ async fn handle_tools_call(params: Option<&Value>) -> Result<Value> {
     let (category, method) = decode_tool_name(name)
         .ok_or_else(|| anyhow::anyhow!("非法工具名 `{name}`，期望 `<category>.<method>`"))?;
 
-    let arguments = params.get("arguments").cloned().unwrap_or_else(|| json!({}));
+    let arguments = params
+        .get("arguments")
+        .cloned()
+        .unwrap_or_else(|| json!({}));
     let timeout_ms = if method == "get_msg_media" {
         Some(120000)
     } else {
@@ -295,7 +298,10 @@ mod tests {
 
     #[test]
     fn decode_tool_name_requires_separator() {
-        assert_eq!(decode_tool_name("contact.get_userlist"), Some(("contact", "get_userlist")));
+        assert_eq!(
+            decode_tool_name("contact.get_userlist"),
+            Some(("contact", "get_userlist"))
+        );
         assert_eq!(decode_tool_name("contact"), None);
         assert_eq!(decode_tool_name(".get_userlist"), None);
         assert_eq!(decode_tool_name("contact."), None);
@@ -343,7 +349,10 @@ mod tests {
     #[test]
     fn normalize_tool_result_reports_invalid_shape() {
         let normalized = normalize_tool_result(json!({"foo": "bar"}));
-        assert_eq!(normalized.get("isError").and_then(Value::as_bool), Some(true));
+        assert_eq!(
+            normalized.get("isError").and_then(Value::as_bool),
+            Some(true)
+        );
     }
 
     #[test]

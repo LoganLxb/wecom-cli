@@ -19,6 +19,6 @@
 
 说明：
 
-- 根包名为 `@wecom/cli`，实际可执行入口是 `bin/wecom.js`。
+- 根包名为 `@loganlxb/wecom-cli`，实际可执行入口是 `bin/wecom.js`。
 - 平台二进制通过 `optionalDependencies` 分发，位于 `packages/*`。
 - `pnpm-workspace.yaml` 当前只管理 `packages/*` 工作区。

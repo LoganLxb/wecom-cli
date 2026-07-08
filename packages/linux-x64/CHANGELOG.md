@@ -1,4 +1,4 @@
-# @wecom/cli-linux-x64
+# @loganlxb/wecom-cli-linux-x64
 
 ## 0.1.9
 

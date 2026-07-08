@@ -1,4 +1,4 @@
-# @wecom/cli
+# @loganlxb/wecom-cli
 
 ## 0.1.9
 

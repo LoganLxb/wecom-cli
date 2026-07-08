@@ -1,7 +1,7 @@
 {
-  "name": "@wecom/cli-win32-x64",
+  "name": "@loganlxb/wecom-cli-win32-x64",
   "version": "0.1.9",
-  "description": "The win32-x64 binary for @wecom/cli",
+  "description": "The win32-x64 binary for @loganlxb/wecom-cli",
   "license": "MIT",
   "files": [
     "bin",
@@ -9,6 +9,9 @@
   ],
   "engines": {
     "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "os": [
     "win32"

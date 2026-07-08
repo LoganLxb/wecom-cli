@@ -15,11 +15,11 @@ function getPlatformPackage() {
   const arch = os.arch();
 
   const platformMap = {
-    'darwin-arm64': '@wecom/cli-darwin-arm64',
-    'darwin-x64': '@wecom/cli-darwin-x64',
-    'linux-arm64': '@wecom/cli-linux-arm64',
-    'linux-x64': '@wecom/cli-linux-x64',
-    'win32-x64': '@wecom/cli-win32-x64',
+    'darwin-arm64': '@loganlxb/wecom-cli-darwin-arm64',
+    'darwin-x64': '@loganlxb/wecom-cli-darwin-x64',
+    'linux-arm64': '@loganlxb/wecom-cli-linux-arm64',
+    'linux-x64': '@loganlxb/wecom-cli-linux-x64',
+    'win32-x64': '@loganlxb/wecom-cli-win32-x64',
   };
 
   const key = `${platform}-${arch}`;
@@ -48,8 +48,8 @@ function getBinaryPath() {
     return join(pkgDir, '..', 'bin', binaryName);
   } catch {
     console.error(
-      `Error: cannot find @wecom/cli binary.\n` +
-        `Please try reinstalling: npm install @wecom/cli\n\n` +
+      `Error: cannot find @loganlxb/wecom-cli binary.\n` +
+        `Please try reinstalling: npm install @loganlxb/wecom-cli\n\n` +
         `If the problem persists, check:\n` +
         `  1. Your npm config does not disable optional dependencies (--no-optional)\n` +
         `  2. Your platform (${os.platform()}-${os.arch()}) is supported`,

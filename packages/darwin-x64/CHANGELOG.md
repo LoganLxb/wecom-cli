@@ -1,4 +1,4 @@
-# @wecom/cli-darwin-x64
+# @loganlxb/wecom-cli-darwin-x64
 
 ## 0.1.9
 

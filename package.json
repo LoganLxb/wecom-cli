@@ -1,18 +1,18 @@
 {
-  "name": "@wecom/cli",
+  "name": "@loganlxb/wecom-cli",
   "version": "0.1.9",
   "description": "The official CLI for WeCom",
   "keywords": [
     "wecom-cli",
     "mcp"
   ],
-  "homepage": "https://github.com/WecomTeam/wecom-cli#readme",
+  "homepage": "https://github.com/LoganLxb/wecom-cli#readme",
   "bugs": {
-    "url": "https://github.com/WecomTeam/wecom-cli/issues"
+    "url": "https://github.com/LoganLxb/wecom-cli/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/WecomTeam/wecom-cli.git"
+    "url": "https://github.com/LoganLxb/wecom-cli.git"
   },
   "license": "MIT",
   "type": "module",
@@ -23,6 +23,16 @@
     "bin",
     "README.md"
   ],
+  "optionalDependencies": {
+    "@loganlxb/wecom-cli-darwin-arm64": "0.1.9",
+    "@loganlxb/wecom-cli-darwin-x64": "0.1.9",
+    "@loganlxb/wecom-cli-linux-arm64": "0.1.9",
+    "@loganlxb/wecom-cli-linux-x64": "0.1.9",
+    "@loganlxb/wecom-cli-win32-x64": "0.1.9"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "prepare": "git config core.hooksPath .githooks"
   },
