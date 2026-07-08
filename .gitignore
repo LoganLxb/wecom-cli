@@ -22,7 +22,7 @@ Thumbs.db
 *.swo
 *~
 .tools/
-npm_recovery_codes.txt
+npm_recovery_codes*.txt
 
 # Platform binary directories (populated during build)
 packages/darwin-arm64/bin/
