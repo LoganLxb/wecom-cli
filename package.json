@@ -25,10 +25,7 @@
   ],
   "optionalDependencies": {
     "@loganlxb/wecom-cli-darwin-arm64": "0.1.9",
-    "@loganlxb/wecom-cli-darwin-x64": "0.1.9",
-    "@loganlxb/wecom-cli-linux-arm64": "0.1.9",
-    "@loganlxb/wecom-cli-linux-x64": "0.1.9",
-    "@loganlxb/wecom-cli-win32-x64": "0.1.9"
+    "@loganlxb/wecom-cli-linux-x64": "0.1.9"
   },
   "publishConfig": {
     "access": "public"

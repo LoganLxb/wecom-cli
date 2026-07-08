@@ -34,7 +34,7 @@
 
 ### 前置条件
 
-- 支持平台：macOS (x64/arm64)、Linux (x64/arm64) 及 Windows (x64)
+- 当前发布包支持平台：macOS (arm64)、Linux (x64)
 - Node.js `>= 18`
 - 企业微信账号
 - （可选）智能机器人 Bot ID 和 Secret，获取方式参考 [说明](https://open.work.weixin.qq.com/help2/pc/cat?doc_id=21677)
